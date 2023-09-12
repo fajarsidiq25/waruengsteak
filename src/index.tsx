@@ -1,15 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { AppProvider } from './hooks/context'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { init as initFullStory } from '@fullstory/browser';
+import * as setup from './setup'
+import axios from 'axios';
+import './styles/index.scss'
+
+// initFullStory({ orgId: '1ENq' });
+
+// public url
+const { PUBLIC_URL } = process.env
+
+// setting axios
+setup.setupAxios(axios)
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <AppProvider>
+      <App basename={PUBLIC_URL} />
+    </AppProvider>
   </React.StrictMode>
 );
 
